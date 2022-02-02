@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import {createInertiaApp} from '@inertiajs/inertia-vue'
 import {InertiaProgress} from '@inertiajs/progress'
+import 'bootstrap'
 
 Vue.prototype.$route = route
 InertiaProgress.init()
