@@ -3,8 +3,11 @@
 </template>
 
 <script>
+import DefaultLayout from "../Layouts/DefaultLayout";
+
 export default {
-    name: "Homepage"
+    name: "Homepage",
+    layout: DefaultLayout
 }
 </script>
 
