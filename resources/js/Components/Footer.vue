@@ -11,8 +11,4 @@ export default {
 </script>
 
 <style scoped>
-.bg-gradient {
-    background: rgb(11, 88, 134) !important;
-    background: linear-gradient(90deg, rgba(11, 88, 134, 1) 0%, rgba(56, 182, 255, 1) 50%) !important;
-}
 </style>
