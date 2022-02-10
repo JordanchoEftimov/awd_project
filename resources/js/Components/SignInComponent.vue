@@ -22,7 +22,7 @@
            class="fa fa-eye position-absolute end-0 top-50 translate-middle-y me-3 cursor-pointer"></i>
       </div>
       <div class="text-center">
-        <button type="submit" class="btn btn-primary fw-bold py-1 px-4 fs-5 border-radius-20px">
+        <button type="submit" class="btn btn-primary fw-bold py-1 px-4 fs-5 border-radius-20px text-white">
           Sign In
         </button>
       </div>

@@ -17,7 +17,7 @@
                     </p>
                     <div class="d-flex justify-content-center justify-content-xl-start">
                         <Link :href="$route('sign_up')"
-                              class="btn btn-primary border-radius-20px text-decoration-none text-white fs-4 fw-bold px-3">
+                              class="btn btn-primary border-radius-20px text-decoration-none text-white fs-4 fw-bold px-4">
                             Get Started
                         </Link>
                     </div>
