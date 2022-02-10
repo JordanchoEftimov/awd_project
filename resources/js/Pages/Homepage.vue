@@ -12,5 +12,10 @@ export default {
 </script>
 
 <style scoped>
-
+div {
+    background-image: url("../../../public/images/background.svg");
+    min-height: calc(100vh - 110px);
+    background-size: cover;
+    min-width: 100vw;
+}
 </style>
