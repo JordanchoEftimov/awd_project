@@ -13,10 +13,30 @@
 
 $font-family-base: 'Gilroy';
 
+// input variables
+$input-font-size: 0.875rem;
+$input-bg: #f0f0f0;
+$input-border-color: white;
+$input-border-radius: 0.5rem;
+$input-focus-bg: #fff;
+$input-color: #999aa4;
+
 @import '~bootstrap/scss/bootstrap';
 @import "~font-awesome";
 
 .bg-gradient {
     background: rgb(11, 88, 134) !important;
     background: linear-gradient(90deg, rgba(11, 88, 134, 1) 0%, rgba(56, 182, 255, 1) 50%) !important;
+}
+
+.border-radius-20px {
+    border-radius: 20px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.line-height-normal {
+    line-height: normal;
 }

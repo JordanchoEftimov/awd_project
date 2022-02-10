@@ -1,7 +1,9 @@
 <template>
-    <div>
+    <div class="min-vh-100 position-relative">
         <Navbar class="sticky-top"/>
-        <slot></slot>
+        <div class="pb-5">
+            <slot></slot>
+        </div>
         <Footer class="position-absolute bottom-0 w-100"/>
     </div>
 </template>
