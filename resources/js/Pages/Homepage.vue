@@ -13,12 +13,19 @@
                     <p class="fs-4 text-dark line-height-normal text-center text-xl-start mb-3">
                         Add your youtube videos and create subtitles for them.<br class="d-none d-xl-block"/>
                         It's easy and free.<br class="d-none d-xl-block"/>
-                        Start by creating your account here.
+                        <span v-if="!$page.props.user">Start by creating your account here.</span>
+                        <span v-else>Start by adding your youtube video.</span>
                     </p>
                     <div class="d-flex justify-content-center justify-content-xl-start">
                         <Link :href="$route('sign_up')"
+                              v-if="!$page.props.user"
                               class="btn btn-primary border-radius-20px text-decoration-none text-white fs-4 fw-bold px-4">
                             Get Started
+                        </Link>
+                        <Link
+                              v-else
+                              class="btn btn-primary border-radius-20px text-decoration-none text-white fs-4 fw-bold px-4">
+                            Create Video
                         </Link>
                     </div>
                 </div>
