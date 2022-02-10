@@ -4,23 +4,30 @@
             <i class="fa fa-video-camera fa-3x me-2"></i>
             <div class="fs-1 fw-bold">iVid</div>
         </div>
-        <form class="px-md-5 mb-4">
+        <form @submit.prevent="sign_up" class="px-md-5 mb-4">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="name"
+                <input :class="{'is-invalid': form.errors.name}" v-model="form.name" type="text" class="form-control"
+                       id="name"
                        placeholder="Name">
                 <label for="name">Name</label>
+                <div class="invalid-feedback">{{ form.errors.name }}</div>
             </div>
             <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="email"
+                <input :class="{'is-invalid': form.errors.email}" v-model="form.email" type="email" class="form-control"
+                       id="email"
                        placeholder="name@example.com">
                 <label for="email">Email address</label>
+                <div class="invalid-feedback">{{ form.errors.email }}</div>
             </div>
             <div class="form-floating mb-3 position-relative">
-                <input :type="passwordVisible ? 'text' : 'password'" class="form-control" id="password"
+                <input :class="{'is-invalid': form.errors.password}" v-model="form.password"
+                       :type="passwordVisible ? 'text' : 'password'" class="form-control"
+                       id="password"
                        placeholder="Password">
                 <label for="password">Password</label>
+                <div class="invalid-feedback">{{ form.errors.password }}</div>
                 <i @click="passwordVisible = !passwordVisible"
-                   :class="{'text-primary': passwordVisible, 'text-black': !passwordVisible}"
+                   :class="{'text-primary': passwordVisible, 'text-black': !passwordVisible, 'd-none': form.errors.password}"
                    class="fa fa-eye position-absolute end-0 top-50 translate-middle-y me-3 cursor-pointer"></i>
             </div>
             <div class="text-center">
@@ -31,7 +38,7 @@
         </form>
         <div class="fs-6 text-center line-height-normal">
             Already have an account?<br/>Click here to
-            <Link class="text-decoration-none">Sign In</Link>
+            <Link :href="$route('show_sign_in')" class="text-decoration-none">Sign In</Link>
             .
         </div>
     </div>
@@ -42,8 +49,18 @@ export default {
     name: "SignUpComponent",
     data() {
         return {
-            passwordVisible: false
+            passwordVisible: false,
+            form: this.$inertia.form({
+                name: '',
+                email: '',
+                password: ''
+            })
         }
+    },
+    methods: {
+        sign_up() {
+            this.form.post(this.$route('sign_up'))
+        },
     }
 }
 </script>

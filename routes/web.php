@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,4 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::inertia("/", "Homepage");
+Route::get('/', function () {
+    return Inertia::render('Homepage');
+})->name('homepage');
+
+Route::middleware('guest')->group(function () {
+    Route::get('/sign-up', [AuthController::class, 'show_sign_up'])->name('show_sign_up');
+    Route::post('/sign-up', [AuthController::class, 'sign_up'])->name('sign_up');
+
+    Route::get('/sign-in', [AuthController::class, 'show_sign_in'])->name('show_sign_in');
+    Route::post('/sign-in', [AuthController::class, 'sign_in'])->name('sign_in');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::post('/sign-out', [AuthController::class, 'sign_out'])->name('sign_out');
+});
