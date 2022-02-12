@@ -15,10 +15,12 @@ use Inertia\Inertia;
 |
 */
 
+// public routes
 Route::get('/', function () {
     return Inertia::render('Homepage');
 })->name('homepage');
 
+// routes for guests (not authenticated users)
 Route::middleware('guest')->group(function () {
     Route::get('/sign-up', [AuthController::class, 'show_sign_up'])->name('show_sign_up');
     Route::post('/sign-up', [AuthController::class, 'sign_up'])->name('sign_up');
@@ -27,6 +29,11 @@ Route::middleware('guest')->group(function () {
     Route::post('/sign-in', [AuthController::class, 'sign_in'])->name('sign_in');
 });
 
+// routes for authenticated users
 Route::middleware('auth')->group(function () {
     Route::post('/sign-out', [AuthController::class, 'sign_out'])->name('sign_out');
+
+    Route::get('/my-videos', function () {
+        return Inertia::render('Video/Index');
+    })->name('videos.index');
 });

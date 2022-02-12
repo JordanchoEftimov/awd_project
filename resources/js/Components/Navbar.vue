@@ -54,7 +54,7 @@ export default {
                 },
                 {
                     name: 'My Videos',
-                    route: '',
+                    route: this.$route('videos.index'),
                     icon: 'fa-video-camera',
                     show: this.$page.props.user
                 },
