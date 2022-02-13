@@ -23,6 +23,7 @@
                             Get Started
                         </Link>
                         <Link
+                              :href="$route('videos.create')"
                               v-else
                               class="btn btn-primary border-radius-20px text-decoration-none text-white fs-4 fw-bold px-4">
                             Create Video

@@ -36,4 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/my-videos', function () {
         return Inertia::render('Video/Index');
     })->name('videos.index');
+
+    Route::get('/create-video', function () {
+        return Inertia::render('Video/Create');
+    })->name('videos.create');
 });

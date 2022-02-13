@@ -60,7 +60,7 @@ export default {
                 },
                 {
                     name: 'Create Video',
-                    route: '',
+                    route: this.$route('videos.create'),
                     icon: 'fa-plus-circle',
                     show: this.$page.props.user
                 },
