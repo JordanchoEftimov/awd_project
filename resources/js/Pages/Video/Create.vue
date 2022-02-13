@@ -120,11 +120,19 @@ export default {
         },
         removeSubtitle(id) {
             this.form.subtitles.splice(id, 1);
+        },
+        validateYoutubeURL(url) {
+            const p = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+            if (url.match(p)) {
+                return url.match(p)[1];
+            }
+            return false;
         }
     },
     computed: {
         videoId() {
             if (!this.form.url) return null;
+            if (!this.validateYoutubeURL(this.form.url) || this.form.url.indexOf('v=') === -1) return null;
             let video_id = this.form.url.split('v=')[1];
             let ampersandPosition = video_id.indexOf('&');
             if (ampersandPosition !== -1) {
