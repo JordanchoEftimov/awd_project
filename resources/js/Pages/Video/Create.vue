@@ -13,7 +13,9 @@
                                placeholder="Video Title">
                         <label for="title">Youtube Video Title</label>
                     </div>
-                    <youtube v-if="videoId" :video-id="videoId" ref="youtube"></youtube>
+                    <div>
+                        <youtube v-if="videoId" :video-id="videoId" :fitParent="true" ref="youtube"></youtube>
+                    </div>
                 </div>
                 <div v-if="videoId" class="col col-12 col-md-6 mb-4 mb-md-0">
                     <div class="fs-4 text-center fw-bold mb-3">Add your Captions</div>
@@ -146,5 +148,9 @@ input, textarea {
 
 textarea {
     height: 150px;
+}
+
+iframe {
+    max-width: 400px !important;
 }
 </style>
