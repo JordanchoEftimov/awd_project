@@ -13,11 +13,7 @@
                                placeholder="Video Title">
                         <label for="title">Youtube Video Title</label>
                     </div>
-                    <iframe v-if="form.url" style="width: 100%" height="534"
-                            :src="'https://www.youtube.com/embed/' + videoId"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
+                    <youtube v-if="videoId" :video-id="videoId" ref="youtube"></youtube>
                 </div>
                 <div v-if="videoId" class="col col-12 col-md-6 mb-4 mb-md-0">
                     <div class="fs-4 text-center fw-bold mb-3">Add your Captions</div>
@@ -133,6 +129,9 @@ export default {
                 video_id = video_id.substring(0, ampersandPosition);
             }
             return video_id
+        },
+        player() {
+            return this.$refs.youtube.player;
         }
     },
 }

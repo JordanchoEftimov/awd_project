@@ -2,7 +2,9 @@ import Vue from 'vue'
 import {createInertiaApp, Link} from '@inertiajs/inertia-vue'
 import {InertiaProgress} from '@inertiajs/progress'
 import 'bootstrap'
+import VueYoutube from 'vue-youtube'
 
+Vue.use(VueYoutube)
 Vue.prototype.$route = route
 Vue.component('Link', Link)
 InertiaProgress.init()
