@@ -13,8 +13,14 @@
                                placeholder="Video Title">
                         <label for="title">Youtube Video Title</label>
                     </div>
-                    <div>
-                        <youtube v-if="videoId" :video-id="videoId" :fitParent="true" ref="youtube"></youtube>
+                    <div class="position-relative">
+                        <youtube @playing="playing" @paused="paused" v-if="videoId" :video-id="videoId"
+                                 :fitParent="true" ref="youtube"></youtube>
+                        <div v-if="subtitleToShow"
+                             style="bottom: 20px"
+                             class="position-absolute start-50 translate-middle-x bg-dark text-white px-2 py-1 fs-6">
+                            {{ subtitleToShow }}
+                        </div>
                     </div>
                 </div>
                 <div v-if="videoId" class="col col-12 col-md-6 mb-4 mb-md-0">
@@ -84,6 +90,8 @@ export default {
     layout: DefaultLayout,
     data() {
         return {
+            time: 0,
+            subtitleToShow: null,
             form: this.$inertia.form({
                 url: '',
                 title: '',
@@ -127,6 +135,21 @@ export default {
                 return url.match(p)[1];
             }
             return false;
+        },
+        async playing() {
+            this.processId = setInterval(() => {
+                this.player.getCurrentTime().then((time) => {
+                    this.time = time;
+                });
+            }, 100);
+        },
+
+        pauseVideo() {
+            this.player.pauseVideo();
+        },
+
+        paused() {
+            clearInterval(this.processId);
         }
     },
     computed: {
@@ -144,6 +167,18 @@ export default {
             return this.$refs.youtube.player;
         }
     },
+    watch: {
+        time: function () {
+            for (let i = 0; i < this.form.subtitles.length; i++) {
+                if (this.form.subtitles[i].from < this.time && this.form.subtitles[i].to > this.time) {
+                    this.subtitleToShow = this.form.subtitles[i].description;
+                    break;
+                } else {
+                    this.subtitleToShow = null
+                }
+            }
+        }
+    }
 }
 
 
