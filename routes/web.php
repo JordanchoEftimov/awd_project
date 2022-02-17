@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -33,11 +34,5 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/sign-out', [AuthController::class, 'sign_out'])->name('sign_out');
 
-    Route::get('/my-videos', function () {
-        return Inertia::render('Video/Index');
-    })->name('videos.index');
-
-    Route::get('/create-video', function () {
-        return Inertia::render('Video/Create');
-    })->name('videos.create');
+    Route::resource('videos', VideoController::class);
 });

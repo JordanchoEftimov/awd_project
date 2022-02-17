@@ -10,7 +10,7 @@
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbar-content">
+            <div class="collapse navbar-collapse" id="navbar-content" ref="collapse">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center">
                     <Link :method="nav_link.name === 'Sign Out' ? 'post': 'get'" :href="nav_link.route"
                           v-for="(nav_link, i) in nav_links" :key="i"
@@ -29,10 +29,13 @@
 </template>
 
 <script>
+import {Collapse} from 'bootstrap';
+
 export default {
     name: "Navbar",
     data() {
         return {
+            collapse: null,
             nav_links: [
                 {
                     name: 'Home',
@@ -73,6 +76,9 @@ export default {
             ]
         }
     },
+    mounted() {
+        this.collapse = new Collapse(this.$refs.collapse, {toggle: false});
+    }
 }
 </script>
 

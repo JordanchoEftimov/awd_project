@@ -1,15 +1,9 @@
 <template>
     <div class="container py-5">
-        <h1 class="text-center display-4 fw-bold mb-4">Create your Video</h1>
+        <h1 class="text-center display-6 fw-bold mb-4">Edit your Video</h1>
         <form @submit.prevent="submit">
             <div class="row">
                 <div class="col col-12" :class="{'col-md-12': !videoId, 'col-md-6': videoId}">
-                    <div class="form-floating mb-3">
-                        <input :class="{'is-invalid': form.errors.url}" v-model="form.url" type="text"
-                               class="form-control" id="url" placeholder="Video URL">
-                        <label for="url">Youtube Video URL</label>
-                        <div class="invalid-feedback">{{ form.errors.url }}</div>
-                    </div>
                     <div class="form-floating mb-3">
                         <input :class="{'is-invalid': form.errors.title}" v-model="form.title" type="text"
                                class="form-control" id="title"
@@ -84,7 +78,7 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-primary btn-lg text-white border-radius-10px px-4">
-                Create Video
+                Update Video
             </button>
         </form>
     </div>
@@ -94,16 +88,19 @@
 import DefaultLayout from "../../Layouts/DefaultLayout";
 
 export default {
-    name: "Create",
+    name: "Edit",
     layout: DefaultLayout,
+    props: {
+        video: Object
+    },
     data() {
         return {
             time: 0,
             subtitleToShow: null,
             form: this.$inertia.form({
-                url: '',
-                title: '',
-                subtitles: []
+                url: this.video.url,
+                title: this.video.title,
+                subtitles: [...this.video.subtitles]
             }),
             from: {
                 value: '',
@@ -158,7 +155,7 @@ export default {
             clearInterval(this.processId);
         },
         submit() {
-            this.form.post(this.$route('videos.store'));
+            this.form.put(this.$route('videos.update', this.video));
         }
     },
     computed: {
@@ -189,8 +186,6 @@ export default {
         }
     }
 }
-
-
 </script>
 
 <style scoped>
