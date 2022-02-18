@@ -31,7 +31,7 @@
 import DefaultLayout from "../../Layouts/DefaultLayout";
 import VideoCard from "../../Components/VideoCard";
 import Pagination from "../../Components/Pagination";
-import DeleteModal from "../../DeleteModal";
+import DeleteModal from "../../Modals/DeleteModal";
 
 export default {
     name: "Index",
