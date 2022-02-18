@@ -9,7 +9,7 @@
                 </div>
                 <div class="col col-8 d-flex flex-column">
                     <div class="d-flex align-items-start justify-content-between">
-                        <div class="fw-bold fs-5">
+                        <div class="fw-bold fs-5 text-truncate">
                             {{ video.title }}
                         </div>
                         <div class="dropdown">

@@ -36,19 +36,19 @@
                                        type="number"
                                        class="form-control"
                                        placeholder="Caption From (in seconds)">
-                                <div class="invalid-feedback">Please insert a value for this field.</div>
+                                <div class="invalid-feedback">{{ from.error }}</div>
                             </div>
                             <div class="w-50 ps-1">
                                 <input min="0" step="1" :class="{'is-invalid': to.error}" v-model="to.value"
                                        type="number"
                                        class="form-control"
                                        placeholder="Caption To (in seconds)">
-                                <div class="invalid-feedback">Please insert a value for this field.</div>
+                                <div class="invalid-feedback">{{ to.error }}</div>
                             </div>
                         </div>
                         <textarea :class="{'is-invalid': description.error}" v-model="description.value"
                                   class="form-control" placeholder="Subtitle"></textarea>
-                        <div class="invalid-feedback">Please insert a value for this field.</div>
+                        <div class="invalid-feedback">{{ description.error }}</div>
                     </div>
                     <div class="text-danger fw-bold text-center mb-3" v-if="form.errors.subtitles">
                         You have to add at least one subtitle to your video
@@ -107,24 +107,38 @@ export default {
             }),
             from: {
                 value: '',
-                error: false
+                error: null
             },
             to: {
                 value: '',
-                error: false
+                error: null
             },
             description: {
                 value: '',
-                error: false
+                error: null
             }
         }
     },
     methods: {
         addNewSubtitle() {
-            this.to.error = this.to.value === '';
-            this.from.error = this.from.value === '';
-            this.description.error = this.description.value === '';
-            if (this.to.error === true || this.from.error === true || this.description.error === true) return
+            this.from.error = null
+            this.to.error = null
+            this.description.error = null
+            if (!this.validateSubtitle(this.from.value, this.to.value)) {
+                this.to.error = "You can't add subtitles that are overlapping."
+                this.from.error = "You can't add subtitles that are overlapping."
+                return
+            }
+            if (parseInt(this.from.value) >= parseInt(this.to.value)) {
+                this.from.error = "The from value cannot be bigger than or equal to the 'to' value."
+                return;
+            }
+            if (this.from.value === '') this.from.error = 'Please insert a value for this field.'
+            if (this.to.value === '') this.to.error = 'Please insert a value for this field.'
+            if (this.description.value === '') this.description.error = 'Please insert a value for this field.'
+            if (parseInt(this.to.value) < 0) this.to.error = 'Please insert a value greater than 0.'
+            if (parseInt(this.from.value) < 0) this.from.error = 'Please insert a value greater than 0.'
+            if (this.to.error !== null || this.from.error !== null || this.description.error !== null) return
             this.form.subtitles.push({
                 from: this.from.value,
                 to: this.to.value,
@@ -133,6 +147,16 @@ export default {
             this.from.value = ''
             this.to.value = ''
             this.description.value = ''
+        },
+        validateSubtitle(from, to) {
+            for (const subtitle of this.form.subtitles) {
+                if ((parseInt(from) > parseInt(subtitle.from) && parseInt(from) < parseInt(subtitle.to))
+                    || (parseInt(to) > parseInt(subtitle.from) && parseInt(to) < parseInt(subtitle.to))
+                    || (parseInt(from) <= parseInt(subtitle.from) && parseInt(to) >= parseInt(subtitle.to))) {
+                    return false;
+                }
+            }
+            return true;
         },
         removeSubtitle(id) {
             this.form.subtitles.splice(id, 1);
@@ -159,7 +183,7 @@ export default {
         },
         submit() {
             this.form.post(this.$route('videos.store'));
-        }
+        },
     },
     computed: {
         videoId() {
